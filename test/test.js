@@ -127,11 +127,11 @@ testRouter.route('/where').get(async(req,res)=>{
     }
 
     let user = await knex('auth')
-                            .where(userlogin)
+                            .where({ userlogin: req.body.userlogin })
                             .first()
    
     if(!user) return res.status(404).json({Msg:  'Usuário não encontrado!'})
-    if(user) return res.status(200).json({Msg:  'Usuário encontrado!'})
+    if(user ) return res.status(200).json({Msg:  'Usuário encontrado!'    })
 
 })
 
