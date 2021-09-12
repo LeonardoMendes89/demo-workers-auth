@@ -38,23 +38,32 @@ testRouter.route('/where').get(async(req,res)=>{
         
 }).post(async(req,res)=>{
 
-    const { userlogin , passlogin} = req.body
+   try{
 
-    if(!userlogin || !passlogin){
-        return res.status(400).json({Erro:'Os campos devem ser diferentes de vazio!'})
-    }
+    
+        const { userlogin , passlogin} = req.body
 
-    const user = await knex('auth').where('userlogin', userlogin)
-                                   .first() 
-    
-    if(!user) return res.status(404).json({Erro: 'Usuário não encontrado!'})
-    
-    const pass = await knex.where('passlogin', passlogin)
-                           .first() 
-    
-    if(!pass) return res.status(401).json({Erro: 'Usuário não autorizado!'})
+        if(!userlogin || !passlogin){
+            return res.status(400).json({Erro:'Os campos devem ser diferentes de vazio!'})
+        }
 
-    if(user && pass) return res.status(200).json({msg: 'Usuário autenticado com sucesso!'})
+        const user = await knex('auth').where('userlogin', userlogin)
+                                    .select(['id','userlogin','passlogin'])
+                                    
+        
+        const pass = await knex.where('passlogin', passlogin)
+                            .select(['id','userlogin','passlogin'])
+        
+        if(!user) return res.status(404).json({Erro: 'Usuário não encontrado!'})
+        if(!pass) return res.status(401).json({Erro: 'Usuário não autorizado!'})
+
+        if(user && pass) return res.status(200).json({msg: 'Usuário autenticado com sucesso!'})
+
+
+   }catch(err){
+        return res.status(500).json(err)
+   }
+
 })
 
 module.exports = testRouter 
