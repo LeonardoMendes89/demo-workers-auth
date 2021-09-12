@@ -29,7 +29,9 @@ testRouter.route('/where').get(async(req,res)=>{
     userlogin = 'admin@aws.com'
     passlogin =  '81dc9bdb52d04dc20036dbd8313ed055'
 
-    await knex.select('*').table('auth')
+    await knex.select('*')
+                        .where('userlogin',userlogin)
+                        .table('auth')
                         .then(account => res.status(200).json(account))
                         .catch(err    => res.status(500).json(err))
         
