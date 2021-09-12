@@ -148,7 +148,7 @@ testRouter.route('/where').get(async(req,res)=>{
     }
 
     let pass = await knex('auth')
-                            .where({ passlogin: req.body.userlogin })
+                            .where({ passlogin: req.body.passlogin })
                             .first()
 
     if(!pass) return res.status(404).json({Msg:  'senha não encontrada!'})
