@@ -110,10 +110,11 @@ testRouter.route('/where').get(async(req,res)=>{
     }
 
     let account = await knex('auth').where(function(){
-        this.where(userlogin, 'userlogin').andWhere(passlogin, 'passlogin')
+        this.where({userlogin: req.body.userlogin}, 'userlogin')
+            .andWhere({passlogin: req.body.passlogin}, 'passlogin')
     })
        
-    if(account)  return res.status(200).json(account)
+    if(account)  return res.status(200).json({Msg:'Usuário logado com sucesso!'})
     if(!account) return res.status(404).json([])
 
 })
