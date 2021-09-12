@@ -40,39 +40,12 @@ testRouter.route('/where').get(async(req,res)=>{
 
    const { userlogin, passlogin } = req.body
 
-    let user = await knex.select('*')
+    await knex.select('*')
                          .where('userlogin',userlogin)
+                         .andWhere('passlogin', passlogin)
                          .table('auth')
-                         .then(data => {
-                            return data
-                         })
+                         .then(data => res.status(200).json(data))
                          .catch(err => res.status(500).json(err))
-
-   let pass = await knex.select('*')
-                        .where('passlogin',passlogin)
-                        .table('auth')
-                        .then(data => {
-                            return data
-                        })
-                        .catch(err => res.status(500).json(err))
-
-    
-      if(user != '' && pass != ''
-        ||
-        user != null && pass != null
-        ||
-        user != {} && pass != {}
-        ||
-        user != [] && pass != []
-        ){
-        return res.status(200).json({
-            msg:'usuário encontrado!'
-        })
-      }else {
-        return res.status(401).json({
-            msg:'usuário não encontrado!'
-        })
-      }
 
 })
 
