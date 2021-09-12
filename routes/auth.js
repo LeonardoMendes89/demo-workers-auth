@@ -10,8 +10,6 @@ authRouter.route('/').post(async(req,res)=>{
             passlogin : req.body.passlogin
         }
   
-  
-
    await knex.select(['id','userlogin','passlogin'])
                 .where(data) 
                 .table('auth')
