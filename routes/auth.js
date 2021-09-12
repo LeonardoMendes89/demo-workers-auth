@@ -13,9 +13,9 @@ authRouter.route('/').post(async(req,res)=>{
   
 
    await knex.select(['id','userlogin','passlogin'])
-                .whereRaw(`${ data.userlogin } = userlogin AND ${data.passlogin} = passlogin`)  
+                .where(data)  
                 .table('auth')
-                .then(_ =>res.status(200).json({msg:"usuário logado com sucesso!"}))
+                .then(data=>res.status(200).json(data))
                 .catch(err => res.status(500).json(err))
 })
 
