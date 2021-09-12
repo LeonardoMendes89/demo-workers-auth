@@ -26,8 +26,8 @@ testRouter.route('/').get(async(req,res)=>{
 
 testRouter.route('/where').get(async(req,res)=>{
 
-    userlogin = 'admin@aws.com'
-    passlogin =  '81dc9bdb52d04dc20036dbd8313ed055'
+    userlogin =  'nodedev@gmail.com'
+    passlogin =  '827ccb0eea8a706c4c34a16891f84e7b'
 
     await knex.select('*')
                         .where('userlogin',userlogin)
@@ -36,6 +36,17 @@ testRouter.route('/where').get(async(req,res)=>{
                         .then(account => res.status(200).json(account))
                         .catch(err    => res.status(500).json(err))
         
+}).post(async(req,res)=>{
+
+   const { userlogin, passlogin } = req.body
+
+    await knex.select('*')
+                        .where('userlogin',userlogin)
+                        .andWhere('passlogin', passlogin)
+                        .table('auth')
+                        .then(account => res.status(200).json(account))
+                        .catch(err    => res.status(500).json(err))
+
 })
 
 module.exports = testRouter 
