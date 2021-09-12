@@ -47,7 +47,9 @@ testRouter.route('/where').get(async(req,res)=>{
                         .then(_ => res.status(200).json({
                             msg:'Usuário logado com sucesso!'
                         }))
-                        .catch(err    => res.status(500).json(err))
+                        .catch(_ => res.status(401).json({
+                            msg:'Usuário não autorizado!'
+                        }))
 
 })
 
