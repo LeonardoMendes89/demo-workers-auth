@@ -38,8 +38,9 @@ testRouter.route('/where').get(async(req,res)=>{
         
 }).post(async(req,res)=>{
 
-   /*
-        metodo 1
+    /** metodo 1 (falhou)   */
+
+   /*       
    
    try{
   
@@ -73,10 +74,13 @@ testRouter.route('/where').get(async(req,res)=>{
    //pergunta publicada no link:  https://www.udemy.com/course/curso-web/learn/lecture/11978558#questions
 
 
-   /**
-    *  metodo 2
-    */
+   
+   
+   
+   
+   /** metodo 2 (falhou) */
 
+    /*
     const { userlogin , passlogin} = req.body
        
     if(!userlogin || !passlogin){
@@ -90,11 +94,28 @@ testRouter.route('/where').get(async(req,res)=>{
         res.json(e)
     })
 
-    //if(!account) return res.status(401).json({Erro: 'Usuário não autorizado!'    })
-    //else return res.status(200).json({Msg:  'Usuário logado com sucesso!'})
+    if(!account) return res.status(401).json({Erro: 'Usuário não autorizado!'    })
+    else return res.status(200).json({Msg:  'Usuário logado com sucesso!'})
+    */
 
-    if(!account) return res.status(401).json(account)
-    else return res.status(200).json(account)
+
+
+
+    /** metodo 3 */
+
+    const { userlogin , passlogin} = req.body
+       
+    if(!userlogin || !passlogin){
+        return res.status(400).json({Erro:'Os campos devem ser diferentes de vazio!'})
+    }
+
+    let account = await knex('auth').where(function(){
+        this.where(userlogin, 'userlogin').andWhere(passlogin, 'passlogin')
+    })
+       
+    if(account)  return res.status(200).json(account)
+    if(!account) return res.status(404).json([])
+
 })
 
 module.exports = testRouter 
