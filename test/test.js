@@ -54,9 +54,9 @@ testRouter.route('/where').get(async(req,res)=>{
         const pass = await knex('auth').where('passlogin', passlogin)
                                        .select(['id','userlogin','passlogin'])
         
-        if(!user && !pass)  return res.status(401).json({Erro: 'Usuário não autorizado!'})
+        if(!user || !pass)  return res.status(401).json({Erro: 'Usuário não autorizado!'})
 
-        if(user && pass) return res.status(200).json({msg: 'Usuário autenticado com sucesso!'})
+        if(user && pass)  return res.status(200).json({msg: 'Usuário autenticado com sucesso!'})
 
 
    }catch(err){
