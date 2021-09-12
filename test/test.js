@@ -42,7 +42,7 @@ testRouter.route('/where').get(async(req,res)=>{
 
     await knex.select('*')
                         .where('userlogin',userlogin)
-                        .andWhere('passlogin', passlogin)
+                        .orWhere('passlogin', passlogin)
                         .table('auth')
                         .then(_ => res.status(200).json({
                             msg:'Usuário logado com sucesso!'
