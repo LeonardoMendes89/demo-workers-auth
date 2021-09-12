@@ -9,7 +9,7 @@
     "start":  "node ./test/index.js"
   },
   "keywords": [],
-  "author": "leonardo sousa",
+  "author": "Leonardo Sousa",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.12"

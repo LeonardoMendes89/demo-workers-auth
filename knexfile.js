@@ -3,8 +3,8 @@ module.exports = {
   development: {
     client: 'postgresql',
     connection: {
-      database: 'test_workers_auth',
-      user:     'postgres',
+      database: 'workers_auth_app',
+      user:     'admin',
       password: '123456'
     },
     pool: {
