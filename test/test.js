@@ -5,9 +5,29 @@ const express    = require('express')
 const testRouter = express()
 
 testRouter.route('/').get(async(req,res)=>{
-    await knex.select('*').table('auth')
+    /*await knex.select('*').table('auth')
                           .then(account => res.status(200).json(account))
-                          .catch(err    => res.status(500).json(err))
+                          .catch(err    => res.status(500).json(err))*/
+
+    try{
+
+        await knex.select([ 'id','userlogin','passlogin'   ])
+                  .where({   userlogin: 'admin@aws.com' })
+                  .onWhere({ passlogin: '81dc9bdb52d04dc20036dbd8313ed055'}) 
+                  .table('auth')
+                  .then(_=>res.status(200).json({
+                            msg:'usuário logado com sucesso!'
+                        }))
+                  .catch(_ => res.status(401).json({
+                            msg:'usuário não encontrado!'
+                        }))
+                      
+                        }catch(err){
+                              return res.status(500).json(err)
+                        }
+                      
+
+
 }).post(async(req,res)=>{
   
   try{
