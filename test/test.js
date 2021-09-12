@@ -46,8 +46,12 @@ testRouter.route('/where').get(async(req,res)=>{
                          .table('auth')
                          .then(data => {
                              data.map(e=>{
+
                                  let user = e.userlogin
-                                 return res.status(200).json(user)
+                                 let pass = e.passlogin
+
+                                 return res.status(200).json({user, pass})
+                                 
                              })
                          })
                          .catch(err => res.status(500).json(err))
