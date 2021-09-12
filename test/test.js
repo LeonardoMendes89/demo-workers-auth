@@ -38,27 +38,29 @@ testRouter.route('/where').get(async(req,res)=>{
         
 }).post(async(req,res)=>{
 
-   const { userlogin, passlogin } = req.body
+   //const { userlogin, passlogin } = req.body
 
-    if(     userlogin != '' || userlogin != null
-        &&
-            passlogin != '' || passlogin != null
-     ){
+        return await knex('auth').where(function(){
+                            const { userlogin , passlogin} = req.body
 
-        return await knex.select('*')
-                         .where('userlogin',userlogin)
-                         .andWhere('passlogin', passlogin)
-                         .table('auth')
+                            if(     userlogin != '' || userlogin != null
+                                &&
+                                    passlogin != '' || passlogin  != null
+                               )
+                                {
+                                        this.where('userlogin', userlogin)
+                                            .andWhere('passlogin', passlogin)
+                                }
+                         })
                          .then(e    => {
                              e.filter(e=>{
                                 return res.status(200).json(e)
                              })
                          })
-                         .catch(err => res.status(404).json(err))
-
-    }else{
-        return res.status(400).json({msg:'os campos devem ser diferentes de vazio!'})
-    }
+                         .catch(_ => res.status(500).json({
+                             msg:'Erro: desculpe hove um err no servidor!'
+                         }))
+  
 
 })
 
