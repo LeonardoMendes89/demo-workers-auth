@@ -4,9 +4,9 @@
   "description": "app from demo skills",
   "main": "index.js",
   "scripts": {
-    "test":   "nodemon ./test/index.js",
-    "dev":    "nodemon index.js",
-    "start":  "node ./test/index.js"
+    "test":   "nodemon  ./test/index.js",
+    "dev":    "nodemon  index.js",
+    "start":  "node index.js"
   },
   "keywords": [],
   "author": "Leonardo Sousa",
