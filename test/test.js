@@ -44,12 +44,13 @@ testRouter.route('/where').get(async(req,res)=>{
         return res.status(400).json({Erro:'Os campos devem ser diferentes de vazio!'})
     }
 
-    const user = await knex('auth').where({userlogin: req.body.userlogin})
-                                      .first() 
+    const user = await knex('auth').where('userlogin', userlogin)
+                                   .first() 
     
     if(!user) return res.status(404).json({Erro: 'Usuário não encontrado!'})
     
-    const pass = await knex.where({passlogin: req.body.passlogin})
+    const pass = await knex.where('passlogin', passlogin)
+                           .first() 
     
     if(!pass) return res.status(401).json({Erro: 'Usuário não autorizado!'})
 
