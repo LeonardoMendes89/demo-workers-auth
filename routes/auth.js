@@ -12,7 +12,7 @@ authRouter.route('/').post(async(req,res)=>{
   
   
 
-   await knex.select(['id','userlogin'])
+   await knex.select(['id','userlogin','passlogin'])
                 .whereRaw(`${ data.userlogin } = userlogin AND ${data.passlogin} = passlogin`)  
                 .table('auth')
                 .then(_ =>res.status(200).json({msg:"usuário logado com sucesso!"}))
