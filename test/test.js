@@ -50,7 +50,7 @@ testRouter.route('/where').get(async(req,res)=>{
                                     })
                                 })
                                 .catch(_ => res.status(500).json({
-                                    msg:'Erro: desculpe hove um err no servidor!'
+                                    msg:'Erro: desculpe hove um erro no servidor!'
                                 }))
   
 })
