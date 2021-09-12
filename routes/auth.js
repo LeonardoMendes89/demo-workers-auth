@@ -12,7 +12,7 @@ authRouter.route('/').post(async(req,res)=>{
   
 
    await knex.select(['id','userlogin'])
-                .where(data)  
+                .whereExist(data)  
                 .table('auth')
                 .then(_ =>res.status(200).json({msg:"usuário logado com sucesso!"}))
                 .catch(err => res.status(500).json(err))
