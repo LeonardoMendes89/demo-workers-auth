@@ -13,7 +13,7 @@ authRouter.route('/').post(async(req,res)=>{
   
 
    await knex.select(['id','userlogin','passlogin'])
-                .whereRaw(`${passlogin} = passlogin`) 
+                .whereExists(data) 
                 .table('auth')
                 .then(data=>res.status(200).json(data))
                 .catch(err => res.status(500).json(err))
