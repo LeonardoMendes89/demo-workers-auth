@@ -5,48 +5,46 @@ const express    = require('express')
 const testRouter = express()
 
 testRouter.route('/').get(async(req,res)=>{
-    /*await knex.select('*').table('auth')
+
+    await knex.select('*').table('auth')
                           .then(account => res.status(200).json(account))
-                          .catch(err    => res.status(500).json(err))*/
-
-    try{
-
-        await knex.select([ 'id','userlogin','passlogin'   ])
-                  .where({   userlogin: 'admin@aws.com' })
-                  .andWhere({ passlogin: '81dc9bdb52d04dc20036dbd8313ed055'}) 
-                  .table('auth')
-                  .then(_=>res.status(200).json({
-                            msg:'usuário logado com sucesso!'
-                        }))
-                  .catch(_ => res.status(401).json({
-                            msg:'usuário não encontrado!'
-                        }))
-                      
-                        }catch(err){
-                              return res.status(500).json(err)
-                        }
-                      
-
+                          .catch(err    => res.status(500).json(err))
 
 }).post(async(req,res)=>{
-  
-  try{
 
       await knex.select([ 'id','userlogin','passlogin'   ])
                 .where({   userlogin: req.body.userlogin })
                 .onWhere({ passlogin: req.body.passlogin }) 
                 .table('auth')
                 .then(_=>res.status(200).json({
-                    msg:'usuário logado com sucesso!'
+                    msg:'usuário encontrado com sucesso!'
                 }))
-                .catch(_ => res.status(401).json({
-                    msg:'usuário não encontrado!'
-                }))
+                .catch(err=> res.status(500).json(err))
 
-  }catch(err){
-        return res.status(500).json(err)
-  }
+})
 
+
+testRouter.route('/where').get(async(req,res)=>{
+
+    userlogin = 'admin@aws.com'
+    passlogin =  '81dc9bdb52d04dc20036dbd8313ed055'
+
+    let found =   await knex.select([ 'id','userlogin' ])
+                            .where( userlogin )
+                            .table('auth')
+                            .then(data =>res.status(200).json(data))
+                            .catch(err=> res.status(500).json(err))
+
+    if(found){
+        return res.status(200).json({
+            msg:'usuário encontrado com sucesso!'
+        })
+    }else if(!found){
+        return res.status(500).json({
+            msg:'usuário não encontrado!'
+        })
+    }
+                      
 })
 
 module.exports = testRouter 
