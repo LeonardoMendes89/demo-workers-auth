@@ -45,11 +45,10 @@ testRouter.route('/where').get(async(req,res)=>{
                          .andWhere('passlogin', passlogin)
                          .table('auth')
                          .then(data => {
-                             if(data === []){
-                                return res.status(401).json([])
-                             }else{
-                                return res.status(200).json(data)
-                             }
+                             data.map(e=>{
+                                 let user = e.userlogin
+                                 return res.status(200).json(user)
+                             })
                          })
                          .catch(err => res.status(500).json(err))
 
