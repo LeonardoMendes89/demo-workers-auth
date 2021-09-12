@@ -31,6 +31,7 @@ testRouter.route('/where').get(async(req,res)=>{
 
     await knex.select('*')
                         .where('userlogin',userlogin)
+                        .andWhere('passlogin', passlogin)
                         .table('auth')
                         .then(account => res.status(200).json(account))
                         .catch(err    => res.status(500).json(err))
