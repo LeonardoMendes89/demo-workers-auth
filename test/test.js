@@ -38,33 +38,21 @@ testRouter.route('/where').get(async(req,res)=>{
         
 }).post(async(req,res)=>{
 
-   //const { userlogin, passlogin } = req.body
-
         return await knex('auth').where(function(){
                                 const { userlogin , passlogin} = req.body
 
-                                if(     userlogin != '' || userlogin != null
-                                    &&
-                                        passlogin != '' || passlogin  != null
-                                )
-                                    {
-                                            this.where('userlogin', userlogin)
-                                                .andWhere('passlogin', passlogin)
-                                    }
-                                else{
-                                    res.status(400).json({msg:'Os campos devem ser diferentes de vazio!'})
-                                }
-                         })
-                         .then(e    => {
-                             e.filter(e=>{
-                                return res.status(200).json(e)
-                             })
-                         })
-                         .catch(_ => res.status(500).json({
-                             msg:'Erro: desculpe hove um err no servidor!'
-                         }))
+                                 this.where('userlogin', userlogin)
+                                     .andWhere('passlogin', passlogin) 
+                                })
+                                .then(e    => {
+                                    e.filter(e=>{
+                                        return res.status(200).json(e)
+                                    })
+                                })
+                                .catch(_ => res.status(500).json({
+                                    msg:'Erro: desculpe hove um err no servidor!'
+                                }))
   
-
 })
 
 module.exports = testRouter 
