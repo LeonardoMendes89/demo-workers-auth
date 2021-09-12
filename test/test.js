@@ -32,7 +32,9 @@ testRouter.route('/where').get(async(req,res)=>{
     let found =   await knex.where( userlogin )
                             .select([ 'id','userlogin' ])
                             .table('auth')
-                            .then(data =>res.status(200).json(data))
+                            .then(data =>{
+                                return data
+                            })
                             .catch(err=> res.status(500).json(err))
 
     if(found){
