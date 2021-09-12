@@ -139,9 +139,9 @@ testRouter.route('/where').get(async(req,res)=>{
 
 
 
-     /** metodo 5 */
+     /** metodo 5 (sucesso) */
 
-    const { userlogin , passlogin} = req.body
+    /*const { userlogin , passlogin} = req.body
        
     if(!userlogin || !passlogin){
         return res.status(400).json({Erro:'Os campos devem ser diferentes de vazio!'})
@@ -152,8 +152,33 @@ testRouter.route('/where').get(async(req,res)=>{
                             .first()
 
     if(!pass) return res.status(404).json({Msg:  'senha não encontrada!'})
-    if(pass ) return res.status(200).json({Msg:  'senha encontrada!'    })
+    if(pass ) return res.status(200).json({Msg:  'senha encontrada!'    })*/
 
+
+
+
+
+
+
+    const { userlogin , passlogin} = req.body
+       
+    if(!userlogin || !passlogin){
+        return res.status(400).json({Erro:'Os campos devem ser diferentes de vazio!'})
+    }
+
+    let user = await knex('auth')
+                            .where({ userlogin: req.body.userlogin })
+                            .first()
+
+    if(!user) return res.status(404).json({Msg:  'Usuário não encontrado!'})
+
+    let pass = await knex('auth')
+                            .where({ passlogin: req.body.passlogin })
+                            .first()
+
+    if(!pass) return res.status(401).json({Msg:  'Usuário não autorizado!'})
+    
+    if(user && pass) return res.status(200).json({Msg:  'Usuário logado com sucesso!'    })
 
 })
 
