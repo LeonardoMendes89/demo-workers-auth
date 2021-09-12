@@ -41,15 +41,18 @@ testRouter.route('/where').get(async(req,res)=>{
    //const { userlogin, passlogin } = req.body
 
         return await knex('auth').where(function(){
-                            const { userlogin , passlogin} = req.body
+                                const { userlogin , passlogin} = req.body
 
-                            if(     userlogin != '' || userlogin != null
-                                &&
-                                    passlogin != '' || passlogin  != null
-                               )
-                                {
-                                        this.where('userlogin', userlogin)
-                                            .andWhere('passlogin', passlogin)
+                                if(     userlogin != '' || userlogin != null
+                                    &&
+                                        passlogin != '' || passlogin  != null
+                                )
+                                    {
+                                            this.where('userlogin', userlogin)
+                                                .andWhere('passlogin', passlogin)
+                                    }
+                                else{
+                                    res.status(400).json({msg:'Os campos devem ser diferentes de vazio!'})
                                 }
                          })
                          .then(e    => {
