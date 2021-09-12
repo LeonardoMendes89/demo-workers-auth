@@ -9,8 +9,8 @@ authRouter.route('/').post(async(req,res)=>{
         passlogin = req.body
   
 
-   await knex.where({userlogin, passlogin })   
-                .select(['id','userlogin'])
+   await knex.select(['id','userlogin'])
+                .where({userlogin, passlogin })  
                 .table('auth')
                 .then(account => res.status(200).json(account))
                 .catch(err => res.status(500).json(err))
