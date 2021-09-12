@@ -14,7 +14,16 @@ authRouter.route('/').post(async(req,res)=>{
    await knex.select(['id','userlogin'])
                 .where(data)  
                 .table('auth')
-                .then(account => res.status(200).json(account))
+                .then(data =>{
+                    if(data){
+                        return res.status(200).json({
+                        msg:"usuário logado com sucesso!"
+                    })
+                }else{
+                    return res.status(401).json({
+                        msg:"usuário não autorizado!"})
+                      }
+                })
                 .catch(err => res.status(500).json(err))
 })
 
