@@ -44,27 +44,10 @@ testRouter.route('/where').get(async(req,res)=>{
                          .where('userlogin',userlogin)
                          .andWhere('passlogin', passlogin)
                          .table('auth')
-                         .then(data => {
-                                    data.filter(e=>{
-
-                                       try{
-
-                                            if(!e){
-                                                return res.status(404).json(_)
-                                            }else{
-                                                return res.status(200).json(e)
-                                            }
-
-                                       }catch(err){
-                                           res.status(500).json(err)
-                                       }
-
-                                    }) 
-                         })
+                         .then(e    => res.status(200).json(e))
                          .catch(err => res.status(500).json(err))
 
 })
 
 module.exports = testRouter 
 
-/**asdasdas */
