@@ -89,7 +89,7 @@ testRouter.route('/where').get(async(req,res)=>{
     }).select(['id','userlogin',' passlogin'])
 
     if(!account) return res.status(401).json({Erro: 'Usuário não autorizado!'    })
-    if(account ) return res.status(200).json({Msg:  'Usuário logado com sucesso!'})
+    else return res.status(200).json({Msg:  'Usuário logado com sucesso!'})
 })
 
 module.exports = testRouter 
