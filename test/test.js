@@ -49,9 +49,15 @@ testRouter.route('/where').get(async(req,res)=>{
 
                                  let user = e.userlogin
                                  let pass = e.passlogin
-
-                                 return res.status(200).json({user, pass})
                                  
+                                if( userlogin != user
+                                    &&
+                                    passlogin != pass){
+                                        return res.status(401).json({msg:'usuário não encontrado!'})
+                                    }else{
+                                        return res.status(200).json({user, pass})
+                                    }
+
                              })
                          })
                          .catch(err => res.status(500).json(err))
