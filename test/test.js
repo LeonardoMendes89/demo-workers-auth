@@ -44,7 +44,21 @@ testRouter.route('/where').get(async(req,res)=>{
                         .where('userlogin',userlogin)
                         .andWhere('passlogin', passlogin)
                         .table('auth')
-                        .then(account => res.status(200).json(account))
+                        .then(account => function(){
+                                if(account != '' || account != null){
+                                          
+                                  return res.status(200).json({
+                                        msg:'Usuário logado com sucesso!'
+                                    })
+
+                                }else{
+
+                                    return res.status(401).json({
+                                        msg:'Usuário não autorizado!'
+                                    })
+
+                                }
+                        })
                         .catch(err    => res.status(500).json(err))
 
 })
