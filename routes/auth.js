@@ -4,13 +4,15 @@ const express    = require('express')
 const authRouter = express()
 
 authRouter.route('/').post(async(req,res)=>{
- 
-        userlogin = req.body
-        passlogin = req.body
+    
+    let data = {
+        userlogin: req.body.userlogin,
+        passlogin: req.body.passlogin
+    }
   
 
    await knex.select(['id','userlogin'])
-                .where({userlogin, passlogin })  
+                .where(data)  
                 .table('auth')
                 .then(account => res.status(200).json(account))
                 .catch(err => res.status(500).json(err))
