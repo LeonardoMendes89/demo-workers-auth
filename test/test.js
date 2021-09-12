@@ -86,10 +86,15 @@ testRouter.route('/where').get(async(req,res)=>{
     let account = await knex('auth').where({
         userlogin: userlogin,
         passlogin: passlogin
-    }).select(['id','userlogin',' passlogin'])
+    }).select(function(e){
+        res.json(e)
+    })
 
-    if(!account) return res.status(401).json({Erro: 'Usuário não autorizado!'    })
-    else return res.status(200).json({Msg:  'Usuário logado com sucesso!'})
+    //if(!account) return res.status(401).json({Erro: 'Usuário não autorizado!'    })
+    //else return res.status(200).json({Msg:  'Usuário logado com sucesso!'})
+
+    if(!account) return res.status(401).json(account)
+    else return res.status(200).json(account)
 })
 
 module.exports = testRouter 
