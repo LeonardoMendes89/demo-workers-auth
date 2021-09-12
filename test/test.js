@@ -13,7 +13,7 @@ testRouter.route('/').get(async(req,res)=>{
 
         await knex.select([ 'id','userlogin','passlogin'   ])
                   .where({   userlogin: 'admin@aws.com' })
-                  .onWhere({ passlogin: '81dc9bdb52d04dc20036dbd8313ed055'}) 
+                  .andWhere({ passlogin: '81dc9bdb52d04dc20036dbd8313ed055'}) 
                   .table('auth')
                   .then(_=>res.status(200).json({
                             msg:'usuário logado com sucesso!'
