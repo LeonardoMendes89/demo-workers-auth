@@ -46,9 +46,15 @@ testRouter.route('/where').get(async(req,res)=>{
                          .table('auth')
                          .then(data => {
                                     data.filter(e=>{
-                                    
-                                        return res.status(200).json(e)
-                                   
+
+                                        if(e === {}){
+                                            return res.status(404).json({})
+                                        }else if(e === []){
+                                            return res.status(404).json({})
+                                        }else {
+                                            return res.status(200).json(e)
+                                        }
+                                        
                                     })
                          })
                          .catch(err => res.status(500).json(err))
