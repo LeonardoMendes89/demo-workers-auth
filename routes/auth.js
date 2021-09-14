@@ -23,9 +23,9 @@ authRouter.route('/').post(async(req,res)=>{
 
     if(!pass) return res.status(401).json({Msg:  'User unauthorized!'})
     
-    //if(user && pass) return res.redirect(200,'https://workers-app.netlify.app/home')
+    if(user && pass) return res.redirect('https://workers-app.netlify.app/home')
      
-	if(user && pass) return res.status(200).json({msg:'OK'})
+	//if(user && pass) return res.status(200).json({msg:'OK'})
 })
 
 module.exports = authRouter 
