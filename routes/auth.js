@@ -23,7 +23,7 @@ authRouter.route('/').post(async(req,res)=>{
 
     if(!pass) return res.status(401).json({Msg:  'User unauthorized!'})
     
-    if(user && pass) return res.redirect(200,'http://www.google.com')
+    if(user && pass) return res.redirect(200,'https://workers-app.netlify.app/home')
         
 })
 
